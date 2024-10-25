@@ -1,23 +1,21 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import HeaderMenu from '@/components/HeaderMenu.vue';
+import { stock } from '@/components/classes/stock.js';
 
-// reactive state
-const count = ref(0)
-
-// functions that mutate state and trigger updates
 function increment() {
-  count.value++
+  let item1 = stock.add("cake", 100);
+  let item2 = stock.add("banana", 100);
+  item1.name = "apple";
+  //stock.list().push("noNo"); //How to make sure this is not possible
+  //item2.remove();
+
 }
 
-// lifecycle hooks
-onMounted(() => {
-  console.log(`The initial count is ${count.value}.`)
-})
 </script>
 
 <template>
   <HeaderMenu/>
   <h3>Admin</h3>
-  <button @click="increment">Count is: {{ count }}</button>
+  <button @click="increment"></button>
 </template>
