@@ -4,21 +4,52 @@ import HeaderMenu from '@/components/HeaderMenu.vue';
 
 // lifecycle hooks
 onMounted(() => {
+  getData();
   items.value.sort(compareNumberOfSoldItems);
   basketSum.value = 0;
 });
+
+async function getData() {
+  const url = "http://jimx02132.web.techcollege.dk/api/ProductItems";
+  try {
+    const response = await fetch(url, {
+      method: "GET", // POST, PUT, DELETE, etc.
+      cache: "default", // no-store, reload, no-cache, force-cache, or only-if-cached
+      mode: 'cors',
+      headers: {
+        'Access-Control-Allow-Origin':'*'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const json = await response.json();
+    console.log(json);
+  } catch (error) {
+    console.error(error.message);
+  }
+}
 
 let id = 0
 
 const basketSum = ref();
 const basketItems = ref([]);
 
+/*
 const items = ref([
-  { id: id++, name: 'Apple', inStock: 20, sold: 57, price: 3, imageUrl: "https://thefreshandnatural.com/wp-content/uploads/2020/05/APPLE-GALA-KG.jpg" },
-  { id: id++, name: 'Banana', inStock: 10, sold: 10, price: 5, imageUrl: "https://static.wixstatic.com/media/53e8bb_a1e88e551162485eb4ff962437300872~mv2.jpeg/v1/crop/x_0,y_105,w_1024,h_919/fill/w_560,h_560,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/Banana.jpeg" },
-  { id: id++, name: 'CocaCola 330ML', inStock: 30, sold: 30, price: 10, imageUrl: "https://unityfood.az/storage/images/g/2476/1280x960/1705860809.jpg" },
-  { id: id++, name: 'Cake', inStock: 50, sold: 55, price: 60, imageUrl: "https://stylesweet.com/wp-content/uploads/2022/06/DripBestButterCake_Featured.jpg" },
-])
+  { id: id++, name: 'Hair extensions', inStock: 300, sold: 57, price: 200, imageUrl: "https://hairtalk.dk/cdn/shop/files/Hairband-FORSIDE_ce2531b8-3955-409f-8e4c-49116d49b718.jpg?v=1700502315" },
+  { id: id++, name: 'Kvinde', inStock: 0, sold: 134, price: 100, imageUrl: "https://www.aleris.dk/49b72d/siteassets/aleris.dk/image-850x800/kvindens-sundhed.jpg" },
+  { id: id++, name: 'Shampoo', inStock: 224, sold: 30, price: 50, imageUrl: "https://www.nemlig.com/scommerce/images/shampoo-alle-haartyper.jpg?i=P54VSBHV/5010179" },
+  { id: id++, name: 'Hårfarve', inStock: 200, sold: 34, price: 150, imageUrl: "https://shop14445.sfstatic.io/upload_dir/shop/product-images/haar_farve/_thumbs/alle_farver.w610.h610.fill.jpg" },
+  { id: id++, name: 'Barbering', inStock: 0, sold: 23, price: 100, imageUrl: "https://oddsailor.dk/images/zoom/skaggmall-for-rakning.jpg" },
+  { id: id++, name: 'Håropsætning', inStock: 0, sold: 43, price: 300, imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGEL2DxFRBG025cy1WVN1wBOp06bBeCkhAZA&s" },
+  { id: id++, name: 'Hårklip', inStock: 0, sold: 234, price: 300, imageUrl: "https://frisorfinder.dk/wp-content/uploads/2024/04/amagerfrisor.png" },
+]);
+*/
+
+const items = ref([]);
 
 const newItemName = ref('');
 const newItemPrice = ref('');
@@ -296,7 +327,7 @@ th, td {
   right: 10px;
   width: 30px;
   height: 30px;
-  background-image: url("kurv.png");
+  background-image: url("shoppingBasket.svg");
   background-repeat: no-repeat;
   background-size: cover;
 }

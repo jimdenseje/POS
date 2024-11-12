@@ -13,7 +13,7 @@ function notImplemented() {
 
 function submit() {
   if (loginForm.username === undefined) {
-    router.push('/user');
+    router.push('/product');
   } else if (loginForm.username === "admin") {
     router.push('/admin');
   } else {
@@ -27,10 +27,10 @@ function submit() {
   <div id="center2">
   <div id="center">
     <header>
-      <center><img alt="Pos logo" class="logo" src="/favicon.png" width="125" height="125" /></center>
+      <center><img alt="Techhair logo" class="logo" src="/favicon.png" width="125" height="125" /></center>
 
       <div class="wrapper">
-        <Message title="Velkommen til Pos" msg="Du er nu mere en velkommen til at logge ind" />
+        <Message title="Velkommen til Techhair" msg="Du er nu mere en velkommen til at logge ind" />
       </div>
     </header>
 
